@@ -235,25 +235,33 @@ html.clone-mode, .clone-mode body { background-color: #000!important; margin: 0!
 .vp-title-section { padding: 15px; background: #222; }
 .vp-title { font-size: 16px; font-weight: 400; margin: 0; line-height: 1.5; color: #fff; text-align: right; }
 
-/* PLAYER STYLES (Tweaked colors) */
+/* ОБНОВЛЕННЫЕ СТИЛИ ПЛЕЕРА */
 .pl-video-container { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #000; display: flex; cursor: pointer; }
 .pl-frame { width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .25s ease-out, filter .5s ease; z-index: 1; }
 .pl-frame.loading-state { opacity: 1; filter: blur(12px) brightness(.55); }
 .pl-frame.is-ready { opacity: 1; filter: blur(0) brightness(1); }
-.pl-player-time { position: absolute; bottom: 50px; left: 15px; z-index: 20; color: #fff; font-size: 13px; font-weight: 700; text-shadow: 1px 1px 2px #000; letter-spacing: .5px; pointer-events: none; direction: ltr; }
+
+/* Центральная кнопка стала огромной */
 .pl-play-btn { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); z-index: 6; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s ease; pointer-events: none; }
 .pl-play-btn.ready { opacity: 1; pointer-events: auto; }
-.pl-play-btn svg { width: 80px; height: 80px; opacity: .9; filter: drop-shadow(0 0 10px rgba(0,0,0,.8)); }
-.pl-bottom-controls { position: absolute; bottom: 0; left: 0; width: 100%; height: 50px; display: flex; align-items: center; padding: 0 10px; box-sizing: border-box; background: linear-gradient(0deg,rgba(0,0,0,.85) 0,rgba(0,0,0,.4) 50%,transparent 100%); z-index: 5; pointer-events: none; direction: ltr; }
-.pl-vol-btn { width: 28px; height: 28px; fill: #fff; margin-right: 15px; cursor: pointer; pointer-events: auto; }
-.pl-progress-track { flex-grow: 1; height: 3px; background: rgba(255,255,255,.3); position: relative; cursor: pointer; margin-right: 15px; pointer-events: auto; display: flex; align-items: center; }
+.pl-play-btn svg { width: 120px; height: 120px; opacity: .9; filter: drop-shadow(0 0 10px rgba(0,0,0,.6)); }
+
+/* Нижний бар */
+.pl-bottom-controls { position: absolute; bottom: 0; left: 0; width: 100%; height: 50px; display: flex; align-items: center; padding: 0 15px; box-sizing: border-box; background: linear-gradient(0deg,rgba(0,0,0,.9) 0,rgba(0,0,0,.5) 50%,transparent 100%); z-index: 5; pointer-events: none; direction: ltr; }
+.pl-bottom-play { width: 24px; height: 24px; fill: #fff; margin-right: 15px; cursor: pointer; pointer-events: auto; }
+.pl-vol-btn { width: 24px; height: 24px; fill: #fff; margin-right: 15px; cursor: pointer; pointer-events: auto; }
+.pl-player-time-bottom { color: #fff; font-size: 13px; font-weight: 700; text-shadow: 1px 1px 2px #000; margin-right: 15px; pointer-events: none; }
+
+.pl-progress-track { flex-grow: 1; height: 4px; background: rgba(255,255,255,.3); position: relative; cursor: pointer; margin-right: 15px; pointer-events: auto; display: flex; align-items: center; }
 .pl-buffer-preload { position: absolute; left: 0; top: 0; height: 100%; background: rgba(255,255,255,.6); width: 0; animation: fakeBufferAnim 12s ease-out forwards; z-index: 1; }
 @keyframes fakeBufferAnim { 0% { width: 15%; } 20% { width: 45%; } 60% { width: 75%; } 100% { width: 95%; } }
 .pl-progress-filled { width: 15%; height: 100%; background: #fff; position: absolute; left: 0; top: 0; z-index: 2; }
-.pl-progress-dot { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: absolute; right: -6px; top: -4.5px; box-shadow: 0 0 3px rgba(0,0,0,.5); z-index: 3; }
+.pl-progress-dot { width: 12px; height: 12px; background: #fff; border-radius: 50%; position: absolute; right: -6px; top: -4px; box-shadow: 0 0 3px rgba(0,0,0,.5); z-index: 3; }
+
 .buttons-bar { display: flex; align-items: center; pointer-events: auto; }
 .pl-fullscreen-btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; cursor: pointer; }
-.pl-fullscreen-btn svg { width: 20px; height: 20px; fill: #fff; }
+.pl-fullscreen-btn svg { width: 22px; height: 22px; fill: #fff; }
+
 .pl-loader { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.5); z-index: 5; }
 .pl-loader::after { content: ""; width: 40px; height: 40px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: #ff00ff; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -329,24 +337,27 @@ html.clone-mode, .clone-mode body { background-color: #000!important; margin: 0!
         <svg viewBox="0 0 24 24"><path fill="#fff" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
       </div>
       
-      <div class="pl-player-time">00:00 / 02:03</div>
-      
       <img class="pl-frame pl-main-play-trigger" id="frame" alt="" fetchpriority="high" decoding="async" data-target="main_play" />
       <div class="pl-loader pl-shimmer pl-main-play-trigger" data-target="main_play"></div>
       
       <div class="pl-play-btn pl-main-play-trigger" data-target="main_play" aria-label="Play">
         <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="45" fill="transparent" stroke="#fff" stroke-width="4"/>
-          <path d="M 40 30 L 70 50 L 40 70 Z" fill="#fff" />
+          <circle cx="50" cy="50" r="46" fill="transparent" stroke="#fff" stroke-width="6"/>
+          <path d="M 38 28 L 72 50 L 38 72 Z" fill="#fff" />
         </svg>
       </div>
       
       <div class="pl-bottom-controls" data-target="timeline">
+        <svg class="pl-bottom-play" viewBox="0 0 24 24" data-target="main_play"><path fill="#fff" d="M8 5v14l11-7z"/></svg>
         <svg class="pl-vol-btn" viewBox="0 0 24 24" data-target="mute_unmute"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        
+        <div class="pl-player-time-bottom">00:00 / 02:03</div>
+
         <div class="pl-progress-track" data-target="timeline">
            <div class="pl-buffer-preload"></div>
            <div class="pl-progress-filled pl-buffer-bar"><div class="pl-progress-dot"></div></div>
         </div>
+
         <div class="buttons-bar right noselect">
           <div class="pl-fullscreen-btn" data-target="fullscreen">
             <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
